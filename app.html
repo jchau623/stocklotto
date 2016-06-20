@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" name="referrer" content="no-referrer">
+        <title>Stock Lottery</title>
+        <!--jquery from google-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <!--jqueryUI from google-->
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+        <!--&lt;!&ndash; Latest compiled and minified JavaScript &ndash;&gt;
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+-->
+        <!-- My CSS -->
+        <link rel="stylesheet" href="app.css">
+        <!-- JS file that I wrote -->
+        <script src="app.js"></script>
+    </head>
+    <body>
+        <div id="header">
+            <h1>Stock Lottery</h1>
+            Inspired by /r/wsb - <i><a href="https://www.reddit.com/r/wallstreetbets/comments/4bt0mr/20g_deep_in_20_random_stocks_top_comment_decides/" target="_blank">20g deep in 20 random stocks</a></i>
+        </div>
+        <div class="col-xs-12 tempremove" id="projectToDos">
+            <p>
+                <h3>TODOs</h3>
+                <ul>
+                    <li>
+                        Get list of stocks from NASDAQ and Dow Jones and filter those with <1M in market cap and <1000 avg volume
+                    </li>
+                    <li>
+                        Get historical stock data for 20 (or user-defined) randomly picked stocks
+                        <ul>
+                            How do we find these random stocks?
+                            <li>Try random letter combinations until one works?</li>
+                            <li>Save the list of stocks offline, index it, generate random number and grab symbol of index, files here: <a href="http://www.nasdaq.com/screening/company-list.aspx">http://www.nasdaq.com/screening/company-list.aspx</a></li>
+                            or get from this <a href="http://oatsreportable.finra.org/OATSReportableSecurities-SOD.txt">http://oatsreportable.finra.org/OATSReportableSecurities-SOD.txt</a>
+                            <li>And use this library to parse the CSV files: <a href="http://papaparse.com/">http://papaparse.com/</a></li>
+                            User-defined?
+                            <li><a href="https://stackoverflow.com/questions/32899143/yahoo-finance-api-stock-ticker-lookup-only-allowing-exact-match/32943831#32943831">https://stackoverflow.com/questions/32899143/yahoo-finance-api-stock-ticker-lookup-only-allowing-exact-match/32943831#32943831</a></li>
+                            <li>Use jQuery-UI autocomplete box</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Install chartJS
+                    </li>
+                </ul>
+            </p>
+        </div>
+    <div class="col-xs-12">
+        <input id="stocklookup" title="Stock Lookup from Yahoo">
+    </div>
+    </body>
+</html>
+
+<script>
+    $(document).ready(function(){
+        initAutoComplete();
+    })
+</script>

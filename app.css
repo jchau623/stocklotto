@@ -1,0 +1,12 @@
+body, a {
+    background-color: #6e5eff;
+    color: white;
+}
+
+input {
+    color: black;
+}
+
+#header {
+    text-align: center;
+}
