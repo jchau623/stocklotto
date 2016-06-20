@@ -25,6 +25,9 @@
             <h1>Stock Lottery</h1>
             Inspired by /r/wsb - <i><a href="https://www.reddit.com/r/wallstreetbets/comments/4bt0mr/20g_deep_in_20_random_stocks_top_comment_decides/" target="_blank">20g deep in 20 random stocks</a></i>
         </div>
+        <div class="col-xs-12">
+            <input id="stocklookup" title="Stock Lookup from Yahoo">
+        </div>
         <div class="col-xs-12 tempremove" id="projectToDos">
             <p>
                 <h3>TODOs</h3>
@@ -40,9 +43,16 @@
                             <li>Save the list of stocks offline, index it, generate random number and grab symbol of index, files here: <a href="http://www.nasdaq.com/screening/company-list.aspx">http://www.nasdaq.com/screening/company-list.aspx</a></li>
                             or get from this <a href="http://oatsreportable.finra.org/OATSReportableSecurities-SOD.txt">http://oatsreportable.finra.org/OATSReportableSecurities-SOD.txt</a>
                             <li>And use this library to parse the CSV files: <a href="http://papaparse.com/">http://papaparse.com/</a></li>
-                            User-defined?
-                            <li><a href="https://stackoverflow.com/questions/32899143/yahoo-finance-api-stock-ticker-lookup-only-allowing-exact-match/32943831#32943831">https://stackoverflow.com/questions/32899143/yahoo-finance-api-stock-ticker-lookup-only-allowing-exact-match/32943831#32943831</a></li>
+                            <br>
+                             <b style="text-decoration: underline;">User-defined?</b>
+                            <s><li><a href="https://stackoverflow.com/questions/32899143/yahoo-finance-api-stock-ticker-lookup-only-allowing-exact-match/32943831#32943831">https://stackoverflow.com/questions/32899143/yahoo-finance-api-stock-ticker-lookup-only-allowing-exact-match/32943831#32943831</a></li></s>
                             <li>Use jQuery-UI autocomplete box</li>
+                            <li>Use resource link https://ichart.yahoo.com/table.csv?s=&lt;ticker&gt; to download csv file with daily price data
+                                <ul>
+                                    <li>Guide to parameters: <a href="http://community.jaspersoft.com/wiki/building-custom-datasource-yahoo-finance-data">http://community.jaspersoft.com/wiki/building-custom-datasource-yahoo-finance-data</a></li>
+                                    <li>e.g. https://ichart.yahoo.com/table.csv?s=AAPL&a=5&b=19&c=2015&d=5&e=19&f=2016 will get AAPL quote from June 19 2015 to June 19 2016</li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -51,9 +61,6 @@
                 </ul>
             </p>
         </div>
-    <div class="col-xs-12">
-        <input id="stocklookup" title="Stock Lookup from Yahoo">
-    </div>
     </body>
 </html>
 
