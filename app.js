@@ -1,4 +1,6 @@
 function initAutoComplete(){
+    var stocks = new StockList();
+
     $("input#stocklookup").autocomplete({
         source: function(request, response){
             $.ajax({
@@ -14,20 +16,26 @@ function initAutoComplete(){
                             response($.map(data.ResultSet.Result, function(ticker){
                                 return {
                                     label: ticker.symbol + " - " + ticker.name + " (" + ticker.exchDisp + ")",
-                                    value: ticker.symbol
+                                    ticker: ticker.symbol,
+                                    exchange: ticker.exchDisp
                                 }
-                            }))
+                            }));
                         }
                     }
                 }
             };
         },
         select: function(event, ui){
+            var stock = ui.item;
             $.ajax({
-                url: queryBuilder(ui.item.value, 'json', false, 'getJSON'),
+                url: queryBuilder(stock.ticker, 'json', false, 'getJSON'),
                 dataType: 'jsonp'
             });
-            console.log(ui.item.value);
+            stocks.addStock(new Stock(stock.ticker, stock.exchange, stock.label));
+            console.log(stocks.getStockList());
+            //clears input field of characters
+            $('#stocklookup').val('');
+            return false;
         }
     })
 }
@@ -51,6 +59,7 @@ function queryBuilder(symbol, type, diagnostics, callback){
     console.log(resource);
     return resource;
 
+    //build date in yyyy-mm-dd format
     function dateBuilder(){
         var now = new Date();
         var day = now.getDate() < 10 ? '0' + now.getDate().toString() : now.getDate().toString();
@@ -62,6 +71,40 @@ function queryBuilder(symbol, type, diagnostics, callback){
     }
 }
 
+function StockList() {
+    var stockList = {};
+    this.addStock = function(stock) {
+        var elementID = stock.ticker+'::'+stock.exchange;
+        if(stockList[elementID]) {
+            return;
+        }
+        stockList[elementID] = {
+            ticker: stock.ticker,
+            exchange: stock.exchange
+        };
+        $('#stockList').append('<li id="'+elementID+'">'+stock.label+' <a href="#" id='+elementID+'DEL'+'>X</a>');
+        document.getElementById(elementID+'DEL').addEventListener('click', function() {
+            removeStock(elementID);
+        });
+    };
+    this.getStockList = function() {
+        return stockList;
+    };
+    function removeStock(eID) {
+        delete stockList[eID];
+        var elem = eID.replace(/\:\:/, '\\:\\:');
+        $('#'+elem).remove();
+    }
+}
+
+class Stock {
+    constructor(ticker, exchange, label) {
+        this.ticker = ticker;
+        this.exchange = exchange;
+        this.label = label;
+    }
+}
+
 function getJSON(data) {
-    console.log(data);
+    console.log(data.query.results);
 }
