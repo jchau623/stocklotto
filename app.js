@@ -27,10 +27,24 @@ function initAutoComplete(){
         },
         select: function(event, ui){
             var stock = ui.item;
+            //check if has been trading in first and last week of range
+            $.ajax({
+                url: queryBuilder(stock.ticker, 'json', false, 'getJSON',
+                    (function(){
+                    var start = new Date();
+                    start.setDate(now.getDate() - 7);
+                    return start;
+                    }),
+                    new Date()),
+                dataType: 'jsonp'
+            });
+
+            //get full data
             $.ajax({
                 url: queryBuilder(stock.ticker, 'json', false, 'getJSON'),
                 dataType: 'jsonp'
             });
+
             stocks.addStock(new Stock(stock.ticker, stock.exchange, stock.label));
             console.log(stocks.getStockList());
             //clears input field of characters
@@ -45,9 +59,9 @@ YQL finance query builder
 YQL turns CSV from ichart.yahoo.com/table.csv?s=... to JSON
 extra step necessary because CSV can't be returned via JSONP
  */
-function queryBuilder(symbol, type, diagnostics, callback){
+function queryBuilder(symbol, type, diagnostics, callback, start, end){
     var resource;
-    var dateRange = dateBuilder();
+    var dateRange = dateBuilder(new Date());
     resource = 'http://query.yahooapis.com/v1/public/yql?q=' +
             'select * from   yahoo.finance.historicaldata ' +
             'where           symbol = "' + symbol + '"' +
@@ -60,8 +74,7 @@ function queryBuilder(symbol, type, diagnostics, callback){
     return resource;
 
     //build date in yyyy-mm-dd format
-    function dateBuilder(){
-        var now = new Date();
+    function dateBuilder(now){
         var day = now.getDate() < 10 ? '0' + now.getDate().toString() : now.getDate().toString();
         var month = now.getMonth()+1 < 10 ? '0' + (now.getMonth()+1).toString() : (now.getMonth()+1).toString();
         var year = now.getFullYear();
